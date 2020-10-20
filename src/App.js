@@ -1,29 +1,39 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import LoginForm from "./components/LoginForm"
+import SignupForm from "./components/SignupForm"
+import Logout from "./components/Logout"
+import {Route, Switch, Redirect} from "react-router-dom"
+import { connect } from 'react-redux';
 import Sidebar from "./Sidebar"
 
-function App() {
+
+
+function App(props) {
   return (
-    <div className="App">
-    <Sidebar/>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Sidebar/>
+        <Switch>
+          <Route path="/login">
+            <LoginForm/>
+          </Route>
+          <Route path="/signup">
+            <SignupForm/>
+          </Route>
+          <Route path="/">
+            <Logout/>
+          </Route>
+       </Switch>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = ({user}) => {
+  console.log(user)
+  return ({
+    user,
+  })
+}
+
+export default connect(mapStateToProps)(App);

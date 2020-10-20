@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useHistory, Redirect} from "react-router-dom"
+import {connect} from "react-redux"
+import {authenticateUser} from "../redux/actions"
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -20,7 +23,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Chater
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -59,8 +62,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+const LoginForm = props => {
   const classes = useStyles();
+  let history = useHistory()
+  const [userData, setUserData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const { username, password } = userData;
+
+  const handleChange = (event) =>{
+    console.log("name", event.target.name)
+    console.log("value", event.target.value)
+    return setUserData({ ...userData, [event.target.name]: event.target.value });
+  }
+    
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Submited")
+    props.login(userData, history)
+  };
+
+  if (props.user) return <Redirect to="/"/>
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -74,17 +99,19 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
+              value={username}
+              onChange={handleChange}
             />
             <TextField
               variant="outlined"
@@ -96,10 +123,8 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              value={password}
+              onChange={handleChange}
             />
             <Button
               type="submit"
@@ -111,13 +136,8 @@ export default function SignInSide() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -131,3 +151,17 @@ export default function SignInSide() {
     </Grid>
   );
 }
+
+const mapStateToProps = ({user}) => {
+  return ({
+    user,
+  })
+}
+
+const mapDispatchToProps = dispatch => {
+  return ({
+    login: (userData, history) => dispatch(authenticateUser(userData, history, "login"))
+  })
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginForm);
