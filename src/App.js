@@ -6,12 +6,14 @@ import SignupForm from "./components/SignupForm"
 import Logout from "./components/Logout"
 import {Route, Switch, Redirect} from "react-router-dom"
 import { connect } from 'react-redux';
+import Sidebar from "./Sidebar"
 
 
 
 function App(props) {
   return (
     <div>
+      <Sidebar/>
         <Switch>
           <Route path="/login">
             <LoginForm/>
@@ -22,8 +24,7 @@ function App(props) {
           <Route path="/">
             <Logout/>
           </Route>
-        </Switch>
-      
+       </Switch>
     </div>
   );
 }
