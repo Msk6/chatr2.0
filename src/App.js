@@ -10,10 +10,12 @@ import Sidebar from "./Sidebar"
 
 
 
-function App(props) {
+function App({user}) {
   return (
     <div>
-      <Sidebar/>
+      {
+        user? <Sidebar/> :
+        <>
         <Switch>
           <Route path="/login">
             <LoginForm/>
@@ -25,6 +27,11 @@ function App(props) {
             <Logout/>
           </Route>
        </Switch>
+       </>
+
+      }
+      
+        
     </div>
   );
 }
