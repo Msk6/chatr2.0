@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import Link from "@material-ui/core/Link";
 import Logout from "./components/Logout";
+import AddChannelModal from "./AddChannelModal";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -59,6 +61,7 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+      <AddChannelModal />
       {props.user && <Logout />}
       <Divider />
       <List>
