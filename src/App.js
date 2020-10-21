@@ -18,6 +18,7 @@ function App({ user }) {
           <div className="col-9">
             <MessagesPage />
           </div>
+
         </div>
       ) : (
         // <MessagesPage />
