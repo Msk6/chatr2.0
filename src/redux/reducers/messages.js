@@ -1,4 +1,4 @@
-import { SET_MESSAGES, POST_MESSAGE } from "../actions/actionTypes";
+import { SET_MESSAGES, POST_MESSAGE, UPDATE_MESSAGES} from "../actions/actionTypes";
 
 const initialState = [];
 
@@ -11,6 +11,9 @@ const reducer = (state = initialState, action) => {
     case POST_MESSAGE:
       const newMessege = action.payload;
       return [...state, newMessege];
+    // case UPDATE_MESSAGES:
+    //   const newMessages = action.payload
+    //   return [...state,...newMessages];
     default:
       return state;
   }

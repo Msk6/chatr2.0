@@ -1,4 +1,4 @@
-import { SET_MESSAGES, POST_MESSAGE } from "./actionTypes";
+import { SET_MESSAGES, POST_MESSAGE, UPDATE_MESSAGES } from "./actionTypes";
 import instance from "./instance";
 
 export const fetchMessages = (channelID) => async (dispatch) => {
@@ -26,3 +26,17 @@ export const PostMessages = (channelID, message) => async (dispatch) => {
     console.error(error);
   }
 };
+
+// export const updateMesages = (time, channelID) => async dispatch =>{
+//   try{
+//     const response = await instance.get(`channels/${channelID}/?latest=${time}`)
+//     const newMessages = response.data
+//     dispatch({
+//       type: POST_MESSAGE,
+//       payload: newMessages,
+//     })
+//   } catch (error) {
+//     console.error(error)
+//   }
+
+// }

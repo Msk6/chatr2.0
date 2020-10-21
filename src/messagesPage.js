@@ -5,10 +5,19 @@ import MessageForm from "./MessageForm";
 import { useParams } from "react-router-dom";
 function MessagesPage(props) {
   const { channelID } = useParams();
+  let timer = setInterval(() => props.fetchMessages(channelID), 3000)
+  // const getLatestMessages = () => {
+  //   let time = Date.now - 3000 
+  //   console.log(time)
+  //   props.updateMesages(time, channelID)
+  // }
+  //let timer = setInterval(getLatestMessages, 3000)
 
   useEffect(() => {
     props.fetchMessages(channelID);
+    clearInterval(timer)
   }, [channelID]);
+  
 
   const meassages = props.messages.map((message) => {
     return (
@@ -41,5 +50,6 @@ const mapStateToProps = ({ messages, channels, user }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchMessages: (channelID) => dispatch(fetchMessages(channelID)),
+  //updateMesages: (time, channelID) => dispatch(updateMesages((time, channelID))),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesPage);
