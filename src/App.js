@@ -24,9 +24,6 @@ function App({ user }) {
             <Route path="/signup">
               <SignupForm />
             </Route>
-            <Route path="/">
-              <Logout />
-            </Route>
             <Route path="/messages/">
               <MessagesPage />
             </Route>
