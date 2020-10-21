@@ -1,20 +1,22 @@
 import {SET_CURRENT_USER} from "./actionTypes";
 import {fetchChannels} from "./channels"
+import {fetchMessages} from "./messages"
 import decode from "jwt-decode"
 import Cookies from "js-cookie"
 
 import instance from "./instance";
 
-export const authenticateUser = (userData, history, type) => 
+export const authenticateUser = (userData, history, type) =>
     async dispatch => {
         try{
             let response = await instance.post(`/${type}/`, userData)
             let { token } = response.data
-            dispatch(setCurrentUser(token)) 
+            dispatch(setCurrentUser(token))
             dispatch(fetchChannels())
+            dispatch(fetchMessages(159))
             console.log(history)
             history.push("/login")
-            
+
         } catch (error) {
             console.error(error)
         } }
@@ -27,12 +29,12 @@ const setUserToken = (token) => {
         instance.defaults.headers.Authorization = `jwt ${token}`
         Cookies.set("token", token)
     } else {
-        delete instance.defaults.headers.Authorization 
+        delete instance.defaults.headers.Authorization
         console.log("after delete token from header")
         Cookies.remove("token")
         console.log("after remove token from cookies")
     }
-    
+
 }
 
 const setCurrentUser = (token) => {
@@ -57,6 +59,6 @@ export const checkExpiredToken = () => {
             if (userData.exp >= currentTime){
                 return setCurrentUser(token)
             }
-        } 
+        }
         return setCurrentUser()
 }

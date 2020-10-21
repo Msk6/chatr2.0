@@ -13,7 +13,10 @@ function App({ user }) {
   return (
     <div>
       {user ? (
+        <>
         <Sidebar />
+        <MessagesPage />
+        </>
       ) : (
         // <MessagesPage />
         <>
