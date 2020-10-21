@@ -1,10 +1,12 @@
-import userReducer from "./user"
+import userReducer from "./user";
 import channelsReducer from "./channels";
-import {combineReducers} from "redux"
+import messagesReducer from "./messages";
+import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-    user: userReducer,
+  user: userReducer,
   channels: channelsReducer,
-})
+  messages: messagesReducer,
+});
 
-export default rootReducer
+export default rootReducer;
