@@ -6,18 +6,19 @@ const MessageForm = (props) => {
   const [userData, setUserData] = useState({
     message: "",
   });
-
+  const resetValue = () => {
+    setUserData({ message: "" });
+  };
   const handleChange = (event) =>
     setUserData({ ...userData, [event.target.name]: event.target.value });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.PostMessages(159, userData);
+    props.PostMessages(props.channelID, userData);
+    resetValue();
   };
 
   const { message } = userData;
-
-  //   if (props.user) return <Redirect to="/" />;
 
   return (
     <div className="col-6 mx-auto">
@@ -46,10 +47,11 @@ const MessageForm = (props) => {
     </div>
   );
 };
-// const mapStateToProps = ({ message }) => ({ message });
+// const mapStateToProps = ({ channels }) => ({ channels });
 const mapDispatchToProps = (dispatch) => {
   return {
-    PostMessages: (id, userData) => dispatch(PostMessages(id, userData)),
+    PostMessages: (channelID, userData) =>
+      dispatch(PostMessages(channelID, userData)),
   };
 };
 

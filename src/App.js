@@ -16,7 +16,9 @@ function App({ user }) {
             <Sidebar />
           </div>
           <div className="col-9">
-            <MessagesPage />
+            <Route path="/messages/:channelID">
+              <MessagesPage />
+            </Route>
           </div>
 
         </div>
@@ -29,9 +31,6 @@ function App({ user }) {
             </Route>
             <Route path="/signup">
               <SignupForm />
-            </Route>
-            <Route path="/messages/">
-              <MessagesPage />
             </Route>
           </Switch>
         </>
