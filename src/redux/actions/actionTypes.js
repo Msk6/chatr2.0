@@ -4,4 +4,6 @@ export const SET_CHANNELS = "SET_CHANNELS";
 
 // Messages Actions
 export const SET_MESSAGES = "SET_MESSAGES";
+//export const UPDATE_MESSAGES = "UPDATE_MESSAGES";
 export const POST_MESSAGE = "POST_MESSAGE";
+
