@@ -63,11 +63,19 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {props.channels.map((channel) => (
-          <Link href={`/messages/${channel.id}`}>
-            <ListItem button key={channel.id + channel.name}>
-              <ListItemText primary={channel.name} />
-            </ListItem>
-          </Link>
+          <div className="row">
+            <div className="col-8">
+              <Link href={`/messages/${channel.id}`}>
+                <ListItem button key={channel.id + channel.name}>
+                  <ListItemText primary={channel.name} />
+                </ListItem>
+              </Link>
+            </div>
+            <div classNAme="col-4">
+              <br></br>
+              <small>owner: {channel.owner}</small>
+            </div>
+          </div>
         ))}
       </List>
     </div>
