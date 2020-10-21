@@ -8,10 +8,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 store.dispatch(checkExpiredToken());
-if(userReducer){
-  store.dispatch(fetchChannels());
-  store.dispatch(fetchMessages(159));
-}
 
 
 export default store;

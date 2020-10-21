@@ -40,7 +40,6 @@ function App({ user }) {
 }
 
 const mapStateToProps = ({ user }) => {
-  console.log(user);
   return {
     user,
   };

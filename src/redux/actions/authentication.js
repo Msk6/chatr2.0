@@ -12,8 +12,8 @@ export const authenticateUser = (userData, history, type) =>
             let response = await instance.post(`/${type}/`, userData)
             let { token } = response.data
             dispatch(setCurrentUser(token))
-            dispatch(fetchChannels())
-            dispatch(fetchMessages(159))
+            // dispatch(fetchChannels())
+            // dispatch(fetchMessages(159))
             console.log(history)
             history.push("/login")
 
@@ -37,16 +37,18 @@ const setUserToken = (token) => {
 
 }
 
-const setCurrentUser = (token) => {
+const setCurrentUser = (token) => dispatch => {
     console.log("setcurrentuser")
     setUserToken(token)
     console.log("returned from setUserToken (removed and deleted token)")
     //console.log("token decode: ",decode(token))
     const user = token? decode(token): null
-    return ({
+    dispatch ({
         type: SET_CURRENT_USER,
         payload: user
     })
+    dispatch(fetchChannels())
+    dispatch(fetchMessages(159))
 }
 
 export const checkExpiredToken = () => {
