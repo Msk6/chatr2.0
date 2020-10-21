@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import Link from "@material-ui/core/Link";
 import Logout from "./components/Logout";
+import AddChannelModal from "./AddChannelModal";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -59,15 +61,24 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+      <AddChannelModal />
       {props.user && <Logout />}
       <Divider />
       <List>
         {props.channels.map((channel) => (
-          <Link href={`/messages/${channel.id}`}>
-            <ListItem button key={channel.id + channel.name}>
-              <ListItemText primary={channel.name} />
-            </ListItem>
-          </Link>
+          <div className="row">
+            <div className="col-8">
+              <Link href={`/messages/${channel.id}`}>
+                <ListItem button key={channel.id + channel.name}>
+                  <ListItemText primary={channel.name} />
+                </ListItem>
+              </Link>
+            </div>
+            <div classNAme="col-4">
+              <br></br>
+              <small>owner: {channel.owner}</small>
+            </div>
+          </div>
         ))}
       </List>
     </div>

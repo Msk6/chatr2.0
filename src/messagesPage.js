@@ -12,6 +12,7 @@ function MessagesPage(props) {
   //   props.updateMesages(time, channelID)
   // }
   //let timer = setInterval(getLatestMessages, 3000)
+
   useEffect(() => {
     props.fetchMessages(channelID);
     clearInterval(timer)
@@ -23,7 +24,8 @@ function MessagesPage(props) {
       <div>
         <h5 className="card-title">
           <p>
-            {message.username}:{message.message}
+            {props.user.username == message.username ? "You" : message.username}
+            :{message.message}
           </p>
         </h5>
       </div>
@@ -40,9 +42,10 @@ function MessagesPage(props) {
   );
 }
 
-const mapStateToProps = ({ messages, channels }) => ({
+const mapStateToProps = ({ messages, channels, user }) => ({
   messages,
   channels,
+  user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
