@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import {fetchChannels} from "./redux/actions"
+import Logout from "./components/Logout"
 
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -68,6 +69,7 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+      {props.user && <Logout/>}
       <Divider />
       <List>
         {props.channels.map((channel) => (
@@ -76,7 +78,6 @@ function ResponsiveDrawer(props) {
           </ListItem>
         ))}
       </List>
-
       <Divider />
       
     </div>
@@ -124,8 +125,9 @@ function ResponsiveDrawer(props) {
   );
 }
 
-const mapStateToProps = ({ channels }) => ({
+const mapStateToProps = ({ channels, user }) => ({
   channels,
+  user,
 });
 
 const mapDispatchToProps = dispatch => ({
