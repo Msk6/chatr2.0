@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { PostMessages } from "./redux/actions";
-import { Redirect } from "react-router-dom";
 
 const MessageForm = (props) => {
   const [userData, setUserData] = useState({
