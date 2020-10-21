@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchChannels } from "./redux/actions";
+import Link from "@material-ui/core/Link";
 import Logout from "./components/Logout";
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -64,9 +63,11 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {props.channels.map((channel) => (
-          <ListItem button key={channel.id}>
-            <ListItemText primary={channel.name} />
-          </ListItem>
+          <Link href={`/messages/${channel.id}`}>
+            <ListItem button key={channel.id + channel.name}>
+              <ListItemText primary={channel.name} />
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
@@ -120,6 +121,6 @@ const mapStateToProps = ({ channels, user }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchChannels: () => dispatch(fetchChannels()),
+  // fetchChannels: () => dispatch(fetchChannels()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveDrawer);
