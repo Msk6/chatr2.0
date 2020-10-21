@@ -16,7 +16,7 @@ export const fetchChannels = () => async (dispatch) => {
 
 export const addChannel = (newChannel, closeModal) => async dispatch => {
   try {
-    const res = await instance.post("/channels/create/",newChannel.name);
+    const res = await instance.post("/channels/create/",newChannel);
     const channel = res.data;
     dispatch({
       type: ADD_CHANNEL,
