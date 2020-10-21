@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {logout} from "../redux/actions"
 function Logout({logout}) {
     return (
-        <button onClick={logout} className="btn btn-danger">logout</button>
+        <button onClick={logout} className="btn btn-danger btn-block">logout</button>
     )
     }
 

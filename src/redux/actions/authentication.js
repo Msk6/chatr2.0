@@ -1,4 +1,5 @@
 import {SET_CURRENT_USER} from "./actionTypes";
+import {fetchChannels} from "./channels"
 import decode from "jwt-decode"
 import Cookies from "js-cookie"
 
@@ -10,6 +11,7 @@ export const authenticateUser = (userData, history, type) =>
             let response = await instance.post(`/${type}/`, userData)
             let { token } = response.data
             dispatch(setCurrentUser(token)) 
+            dispatch(fetchChannels())
             console.log(history)
             history.push("/login")
             
