@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchMessages } from "./redux/actions";
 import MessageForm from "./MessageForm";
-// import { useParams } from "react-router-dom";
-function messagesPage(props) {
-  // const { channelID } = useParams();
+import { useParams } from "react-router-dom";
+function MessagesPage(props) {
+  const { channelID } = useParams();
+  useEffect(() => {
+    props.fetchMessages(channelID);
+  }, [channelID]);
+
   const meassages = props.messages.map((message) => {
     return (
       <div>
@@ -22,16 +26,17 @@ function messagesPage(props) {
       <h1>Messages: </h1>
       {meassages}
       <hr></hr>
-      <MessageForm />
+      <MessageForm channelID={channelID} />
     </div>
   );
 }
 
-const mapStateToProps = ({ messages }) => ({
+const mapStateToProps = ({ messages, channels }) => ({
   messages,
+  channels,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchMessages: (id) => dispatch(fetchMessages(id)),
+  fetchMessages: (channelID) => dispatch(fetchMessages(channelID)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(messagesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesPage);
