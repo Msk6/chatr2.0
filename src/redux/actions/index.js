@@ -5,4 +5,4 @@ export { SET_CHANNELS,ADD_CHANNEL, SET_MESSAGES } from "./actionTypes";
 export { fetchChannels, addChannel } from "./channels";
 
 // Messges
-export { fetchMessages, PostMessages } from "./messages";
+export { fetchMessages, PostMessages, startTimer, stopTimer } from "./messages";
