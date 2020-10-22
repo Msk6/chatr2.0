@@ -20,16 +20,34 @@ function MessagesPage(props) {
     props.startTimer(channelID);
   }, [channelID]);
 
+
+  function isUrl(text)
+    {
+//         let expression =  
+// /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+        let expression =  "https://" 
+        let regex = new RegExp(expression); 
+        let url = text; 
+        return url.match(regex) ? true : false;
+
+}
+  
+
   const meassages = props.messages.map((message) => {
     return (
       <div>
         <h5 className="card-title">
-          <p>
-            {props.user.username === message.username
-              ? "You"
-              : message.username}
+
+          {isUrl(message.message)?(
+            <img src={message.message}/>
+          ):(
+            <p>
+            {props.user.username == message.username ? "You" : message.username}
+
             :{message.message}
           </p>
+          )}
+          
         </h5>
       </div>
     );
