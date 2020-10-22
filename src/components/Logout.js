@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {logout, stopTimer} from "../redux/actions"
+import {logout, stopTimer, stopChannelTimer} from "../redux/actions"
 import {Link} from "react-router-dom"
 
-function Logout({logout, stopTimer}) {
+function Logout({logout, stopTimer, stopChannelTimer}) {
     const handleClick = () => {
         stopTimer()
+        stopChannelTimer()
         logout()
     }
     return (
@@ -20,6 +21,7 @@ const mapDispatchToProps = dispatch => {
     return ({
         logout: () => dispatch(logout()),
         stopTimer: () => dispatch(stopTimer()),
+        stopChannelTimer: () => dispatch(stopChannelTimer())
     })
     }
     

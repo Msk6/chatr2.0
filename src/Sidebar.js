@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import Link from "@material-ui/core/Link";
 import Logout from "./components/Logout";
 import AddChannelModal from "./AddChannelModal";
+import {startChannelTimer ,stopChannelTimer} from "./redux/actions"
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -49,6 +50,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
+
+  useEffect(() => {
+    props.stopChannelTimer()
+    props.startChannelTimer()
+  },[])
+
+  // Styling
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -74,7 +82,7 @@ function ResponsiveDrawer(props) {
                 </ListItem>
               </Link>
             </div>
-            <div classNAme="col-4">
+            <div className="col-4">
               <br></br>
               <small>owner: {channel.owner}</small>
             </div>
@@ -132,6 +140,7 @@ const mapStateToProps = ({ channels, user }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // fetchChannels: () => dispatch(fetchChannels()),
+  startChannelTimer: () => dispatch(startChannelTimer()), 
+  stopChannelTimer: () => dispatch(stopChannelTimer()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ResponsiveDrawer);
