@@ -27,6 +27,16 @@ export const PostMessages = (channelID, message) => async (dispatch) => {
   }
 };
 
+let timer = null
+export const startTimer = (channelID) => dispatch => {
+  console.log("start timer")
+  timer = setInterval(() => dispatch(fetchMessages(channelID)), 3000)
+}
+
+export const stopTimer = () => dispatch =>{
+  console.log("stop timer")
+   clearInterval(timer)
+}
 // export const updateMesages = (time, channelID) => async dispatch =>{
 //   try{
 //     const response = await instance.get(`channels/${channelID}/?latest=${time}`)
