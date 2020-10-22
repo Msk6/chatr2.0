@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { PostMessages } from "./redux/actions";
-import 'emoji-mart/css/emoji-mart.css'
-import { Picker } from 'emoji-mart'
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
 
 import Alert from "./Alert";
 import Modal from "react-responsive-modal";
@@ -11,7 +11,7 @@ import "react-responsive-modal/styles.css";
 const MessageForm = (props) => {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState(null);
-  const [viewEmojis, setViewEmojis] = useState(false)
+  const [viewEmojis, setViewEmojis] = useState(false);
 
   const [userData, setUserData] = useState({
     message: "",
@@ -57,19 +57,16 @@ const MessageForm = (props) => {
     resetValue();
   };
 
-  
-
   const { message } = userData;
 
-  const addEmoji = emojiObj => {
-    let emoji = emojiObj.native
-    setUserData({...userData, message: message+emoji})
-  }
+  const addEmoji = (emojiObj) => {
+    let emoji = emojiObj.native;
+    setUserData({ ...userData, message: message + emoji });
+  };
 
-  const handleViewEmojis = () =>{
-    setViewEmojis(!viewEmojis)
-  }
-  
+  const handleViewEmojis = () => {
+    setViewEmojis(!viewEmojis);
+  };
 
   return (
     <div className="col-6 mx-auto">
@@ -80,33 +77,34 @@ const MessageForm = (props) => {
               <label htmlFor="message">Message</label>
               <div className="input-group">
                 <div className="input-group-append">
-                <button className="btn btn-outline-secondary" onClick={handleViewEmojis}>emojis</button>
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={handleViewEmojis}
+                  >
+                    emojis
+                  </button>
                 </div>
-              <input
-                type="text"
-                className="form-control"
-                id="message"
-                value={message}
-                name="message"
-                placeholder="message"
-                onChange={handleChange}
-              />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="message"
+                  value={message}
+                  name="message"
+                  placeholder="message"
+                  onChange={handleChange}
+                />
+              </div>{" "}
             </div>
-
           </form>
           <Modal open={modal} onClose={() => setModal(false)} center>
             <Alert message={data} />
           </Modal>
 
-  
-          {
-          viewEmojis?
-          <span>
-          <Picker onSelect={addEmoji}/>
-          </span>:null
-          }
-          
-
+          {viewEmojis ? (
+            <span>
+              <Picker onSelect={addEmoji} />
+            </span>
+          ) : null}
         </div>
       </div>
     </div>
@@ -114,7 +112,6 @@ const MessageForm = (props) => {
 };
 
 const mapStateToProps = ({ channels, messages }) => ({ channels, messages });
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
