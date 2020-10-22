@@ -1,8 +1,8 @@
 export { authenticateUser, logout, checkExpiredToken } from "./authentication";
-export { SET_CHANNELS, SET_MESSAGES } from "./actionTypes";
+export { SET_CHANNELS,ADD_CHANNEL, SET_MESSAGES } from "./actionTypes";
 
 // Channels
-export { fetchChannels } from "./channels";
+export { fetchChannels, addChannel } from "./channels";
 
 // Messges
 export { fetchMessages, PostMessages, startTimer, stopTimer } from "./messages";
