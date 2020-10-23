@@ -8,12 +8,24 @@ import {Provider} from "react-redux"
 import store from "./redux"
 import 'bootstrap/dist/css/bootstrap.css';
 
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+      <BrowserRouter>
+          <App />
+      </BrowserRouter>
+    </ThemeProvider>
   </Provider>,
   document.getElementById('root')
 );
