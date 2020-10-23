@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
 function MessagesPage(props) {
   const classes = useStyles();
   const { channelID } = useParams();
@@ -70,15 +69,35 @@ function MessagesPage(props) {
     scrollToBottom()
   }, [channelID]);
 
+
+  function isUrl(text)
+    {
+//         let expression =  
+// /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+        let expression =  "https://" 
+        let regex = new RegExp(expression); 
+        let url = text; 
+        return url.match(regex) ? true : false;
+
+}
+  
+
   const meassages = props.messages.map((message) => {
     return (
       <>
       <div>
         <h5 className="card-title">
-          <p>
+
+          {isUrl(message.message)?(
+            <img src={message.message}/>
+          ):(
+            <p>
             {props.user.username == message.username ? "You" : message.username}
+
             :{message.message}
           </p>
+          )}
+          
         </h5>
 
       </div>
@@ -112,7 +131,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMessages: (channelID) => dispatch(fetchMessages(channelID)),
   //updateMesages: (time, channelID) => dispatch(updateMesages((time, channelID))),
   startTimer: (channelID) => dispatch(startTimer(channelID)),
-  stopTimer: () => dispatch(stopTimer())
 
+  stopTimer: () => dispatch(stopTimer()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesPage);
