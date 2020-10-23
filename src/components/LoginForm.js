@@ -3,6 +3,8 @@ import { useHistory, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authenticateUser } from "../redux/actions";
 
+import 'fontsource-roboto';
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,6 +16,10 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import logo from "../logo.png"
+import { pink,blueGrey,grey,cyan,teal } from '@material-ui/core/colors';
+
+
 
 function Copyright() {
   return (
@@ -49,8 +55,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    margin: theme.spacing(10),
+    marginTop: theme.spacing(15),
+    width: theme.spacing(35),
+    height: theme.spacing(35),
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -58,6 +66,11 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    color: theme.palette.getContrastText(pink[500]),
+    backgroundColor: pink[500],
+  },
+  input: {
+    color: "#ffffff",
   },
 }));
 
@@ -94,10 +107,8 @@ const LoginForm = (props) => {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          <Avatar alt="logo" src={logo} className={classes.avatar} />
+          <Typography component="h1" variant="h4">
             Sign in
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
@@ -131,14 +142,13 @@ const LoginForm = (props) => {
               type="submit"
               fullWidth
               variant="contained"
-              color="primary"
               className={classes.submit}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href="/signup" variant="body2" className={classes.input}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
