@@ -13,7 +13,7 @@ function App({ user }) {
       {user ? (
         <div className="row">
             <Sidebar />
-          <div className="col-10">
+          <div className="col-11">
             <Route path="/messages/:channelID">
               <MessagesPage />
             </Route>

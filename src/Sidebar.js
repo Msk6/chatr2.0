@@ -6,13 +6,12 @@ import AddChannelModal from "./AddChannelModal";
 import {startChannelTimer ,stopChannelTimer} from "./redux/actions"
 import logo from "./logo.png"
 
-import { blueGrey,grey,cyan,teal,pink } from '@material-ui/core/colors';
+import { grey } from '@material-ui/core/colors';
 
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -25,14 +24,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 36,
   },
   channelName: {
-    marginLeft: 36,
+    marginLeft: 16,
     color: "#ffffff",
   },
   channelOwner: {
@@ -112,7 +108,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-
+  inline: {
+    display: 'inline',
+  },
 }));
 
 function ResponsiveDrawer(props) {
@@ -144,7 +142,7 @@ function ResponsiveDrawer(props) {
             <Avatar alt="logo" src={logo} className={classes.large} />
           </IconButton>
 
-          <Typography variant="h3" className={classes.title} noWrap>Chatr 2.0</Typography>
+          <Typography variant="h4" className={classes.title} noWrap>Chatr 2.0</Typography>
           {props.user && <Logout />}
         </Toolbar>
       </AppBar>
@@ -160,11 +158,13 @@ function ResponsiveDrawer(props) {
         <AddChannelModal/>
         {props.channels.map((channel) => (
           <Link href={`/messages/${channel.id}`}>
+
             <ListItem button key={channel.id + channel.name}>
-              <ListItemIcon>{channel.image_url?<Avatar alt={channel.name} src={channel.image_url} className={classes.large} />:<Avatar className={classes.large} style={{ fontSize: 30 }}>{channel.name[0]}</Avatar>}</ListItemIcon>
-              <ListItemText className={classes.channelName} primary={channel.name} />
+            <ListItemIcon>{channel.image_url?<Avatar alt={channel.name} src={channel.image_url} className={classes.large} />:<Avatar className={classes.large} style={{ fontSize: 30 }}>{channel.name[0]}</Avatar>}</ListItemIcon>
+            <ListItemText className={classes.channelName} primary={channel.name} secondary={channel.owner}/>
             </ListItem>
-            <small className={classes.channelOwner}>owner: {channel.owner}</small>
+
+
 
           </Link>
         ))}

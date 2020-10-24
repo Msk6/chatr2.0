@@ -1,5 +1,6 @@
 import { SET_MESSAGES, POST_MESSAGE, UPDATE_MESSAGES } from "./actionTypes";
 import instance from "./instance";
+import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
 
 export const fetchMessages = (channelID) => async (dispatch) => {
   try {
@@ -13,6 +14,7 @@ export const fetchMessages = (channelID) => async (dispatch) => {
     console.error(error);
   }
 };
+
 
 export const PostMessages = (channelID, message) => async (dispatch) => {
   try {
@@ -36,6 +38,10 @@ export const startTimer = (channelID) => dispatch => {
 export const stopTimer = () => dispatch =>{
   console.log("stop timer")
    clearInterval(timer)
+}
+
+export const scrollToBottom = () => dispatch =>{
+   useScrollToBottom();
 }
 // export const updateMesages = (time, channelID) => async dispatch =>{
 //   try{

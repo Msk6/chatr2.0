@@ -1,36 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { PostMessages } from "./redux/actions";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 
 import Alert from "./Alert";
-import Modal from "react-responsive-modal";
+import Modal from '@material-ui/core/Modal';
 import "react-responsive-modal/styles.css";
 
-import TextField from '@material-ui/core/TextField';
+import Popover from '@material-ui/core/Popover';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { grey } from '@material-ui/core/colors';
+import IconButton from '@material-ui/core/IconButton';
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root':{
       margin: theme.spacing(1),
+      marginTop: theme.spacing(50),
       width: "225ch",
       color: theme.palette.getContrastText(grey[900]),
       backgroundColor: grey[900],
     }
+  },
+  modal:{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }))
 
 
 const MessageForm = (props) => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(false)
+
   const [modal, setModal] = useState(false);
   const [data, setData] = useState(null);
-  const [viewEmojis, setViewEmojis] = useState(false);
 
   const [userData, setUserData] = useState({
     message: "",
@@ -78,48 +90,62 @@ const MessageForm = (props) => {
 
   const { message } = userData;
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
   const addEmoji = (emojiObj) => {
     let emoji = emojiObj.native;
     setUserData({ ...userData, message: message + emoji });
   };
 
-  const handleViewEmojis = () => {
-    setViewEmojis(!viewEmojis);
-  };
-
   return (
 
     <div className="col-12">
-      <div className="card my-5">
-        <div className="card-body">
-          <form onSubmit={handleSubmit} className={classes.root}>
-            <div className="form-group">
-              <label htmlFor="message">Message</label>
-              <div className="input-group">
-                <div className="input-group-append">
-                  <button
-                    className="btn btn-outline-secondary"
-                    onClick={handleViewEmojis}
-                  >
-                    emojis
-                  </button>
-                </div>
-                <TextField required id="message" value={message} name="message" label="message field" type="text" name="message" className="form-control" onChange={handleChange}/>
-              </div>{" "}
-            </div>
-          </form>
-          <Modal open={modal} onClose={() => setModal(false)} center>
+          <FormControl fullWidth className={classes.root}>
+            <form onSubmit={handleSubmit}>
+              <Input fullWidth
+                required
+                id="message"
+                value={message}
+                name="message"
+                label="message"
+                type="text"
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton aria-describedby={id} onClick={handleClick}>
+                      <EmojiEmotionsIcon/>
+                    </IconButton>
+                  </InputAdornment>
+                }/>
+            </form>
+          </FormControl>
+          <Modal className={classes.modal} open={modal} onClose={() => setModal(false)} >
             <Alert message={data} />
           </Modal>
 
-          {viewEmojis ? (
-            <span>
-              <Picker onSelect={addEmoji} />
-            </span>
-          ) : null}
+            <Popover
+              id={id}
+              open={open}
+              onClose={() => setAnchorEl(false)}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              >
+              <Picker onSelect={addEmoji} theme="dark" />
+            </Popover>
+
         </div>
-      </div>
-    </div>
 
   );
 };
