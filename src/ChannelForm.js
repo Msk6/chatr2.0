@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
 import { addChannel } from "./redux/actions/index";
@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 
-import { grey } from '@material-ui/core/colors';
+import { grey,pink } from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root':{
       margin: theme.spacing(1),
-      width: "25ch",
       color: theme.palette.getContrastText(grey[900]),
       backgroundColor: grey[900],
     }
@@ -27,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
     align: "center",
+    color: theme.palette.getContrastText(pink[500]),
+    backgroundColor: pink[500],
   }
 }))
 
@@ -47,17 +48,11 @@ const ChannelForm = ({addChannel,closeModal}) => {
   }
 
   return (
-    <div className={classes.formWindow}>
       <form onSubmit={submitChannel} className={classes.root}>
-        <div className="input-group mb-3">
-          <TextField required id="name" label="name field" type="text" className="form-control" name="name" onChange={textChangeHandler}/>
-        </div>
-        <div className="input-group mb-3">
-          <TextField id="image_url" label="image field" type="text" className="form-control" name="image_url" onChange={textChangeHandler}/>
-        </div>
-        <Button variant="contained" type="submit" className={classes.submit}>Add</Button>
+          <TextField fullWidth required id="name" label="Channel Name" type="text" className="form-control" name="name" onChange={textChangeHandler}/>
+          <TextField fullWidth id="image_url" label="Image url" type="text" className="form-control" name="image_url" onChange={textChangeHandler}/>
+        <Button fullWidth variant="contained" type="submit" className={classes.submit}>Add</Button>
       </form>
-    </div>
   )
 };
 

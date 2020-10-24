@@ -1,15 +1,17 @@
-import React, { useState, Component } from "react";
+import React, { useState } from "react";
 
 import ChannelForm from "./ChannelForm";
-import Modal from '@material-ui/core/Modal';
 import 'react-responsive-modal/styles.css';
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { pink,grey } from '@material-ui/core/colors';
+import { makeStyles } from "@material-ui/core/styles";
+import { pink } from '@material-ui/core/colors';
 import AddIcon from '@material-ui/icons/Add';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   pink:{
@@ -39,12 +41,19 @@ const AddChannelModal = () => {
   const closeModal = () => setOpen(false);
   return(
     <div>
-      <Modal open={open} onClose={closeModal} className={classes.modal} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-        <ChannelForm closeModal={closeModal} />
-      </Modal>
       <ListItem button onClick={openModal} className={classes.sidebar}>
         <ListItemIcon><Avatar className={classes.pink}><AddIcon style={{ fontSize: 40 }}/></Avatar></ListItemIcon>
       </ListItem>
+      <Dialog open={open} onClose={closeModal} className={classes.modal} aria-labelledby="form-dialog-title" >
+        <DialogTitle id="form-dialog-title">Add a Channel</DialogTitle>
+        <DialogContent>
+
+          <ChannelForm closeModal={closeModal} />
+        </DialogContent>
+
+
+      </Dialog>
+
     </div>
   )
 }
