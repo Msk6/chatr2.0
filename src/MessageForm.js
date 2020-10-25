@@ -3,13 +3,10 @@ import { connect } from "react-redux";
 import { PostMessages } from "./redux/actions";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-
 import Alert from "./Alert";
 import Modal from '@material-ui/core/Modal';
 import "react-responsive-modal/styles.css";
-
 import Popover from '@material-ui/core/Popover';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
@@ -40,16 +37,16 @@ const useStyles = makeStyles((theme) => ({
 const MessageForm = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(false)
-
   const [modal, setModal] = useState(false);
   const [data, setData] = useState(null);
-
   const [userData, setUserData] = useState({
     message: "",
   });
+
   const resetValue = () => {
     setUserData({ message: "" });
   };
+
   const handleChange = (event) =>
     setUserData({ ...userData, [event.target.name]: event.target.value });
 

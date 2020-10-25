@@ -56,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 const SignupForm = (props) => {
   const classes = useStyles();
   let history = useHistory();
-  //console.log(useHistory())
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -65,8 +64,6 @@ const SignupForm = (props) => {
   const { username, password } = userData;
 
   const handleChange = (event) => {
-    console.log("name", event.target.name);
-    console.log("value", event.target.value);
     return setUserData({
       ...userData,
       [event.target.name]: event.target.value,
@@ -75,7 +72,6 @@ const SignupForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Submited");
     props.signup(userData, history);
   };
 

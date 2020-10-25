@@ -60,10 +60,11 @@ const useStyles = makeStyles((theme) => ({
 function MessagesPage(props) {
   const classes = useStyles();
   const { channelID } = useParams();
-
   const bottomRef = useRef()
+  let scrollTimer;
+
   const scrollToBottom = () => {
-    setTimeout(() => bottomRef.current.scrollIntoView({
+    scrollTimer = setTimeout(() => bottomRef.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
     }),300)
@@ -73,12 +74,13 @@ function MessagesPage(props) {
     props.fetchMessages(channelID);
     props.stopTimer()
     props.startTimer(channelID)
+    clearTimeout(scrollTimer)
     scrollToBottom()
   }, [channelID]);
 
   useEffect(() => {
-
-    scrollToBottom()
+    clearTimeout(scrollTimer)
+    scrollToBottom() 
   }, [props.messages]);
 
 
@@ -88,7 +90,6 @@ function MessagesPage(props) {
         let regex = new RegExp(expression);
         let url = text;
         return url.match(regex) ? true : false;
-
 }
 
 
@@ -145,7 +146,6 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMessages: (channelID) => dispatch(fetchMessages(channelID)),
   //updateMesages: (time, channelID) => dispatch(updateMesages((time, channelID))),
   startTimer: (channelID) => dispatch(startTimer(channelID)),
-
   stopTimer: () => dispatch(stopTimer()),
 
 });

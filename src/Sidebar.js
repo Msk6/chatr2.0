@@ -5,10 +5,7 @@ import Logout from "./components/Logout";
 import AddChannelModal from "./AddChannelModal";
 import {startChannelTimer ,stopChannelTimer} from "./redux/actions"
 import logo from "./logo.png"
-
 import { grey } from '@material-ui/core/colors';
-
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -17,7 +14,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-
 import clsx from "clsx";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -160,9 +156,6 @@ function ResponsiveDrawer(props) {
             <ListItemIcon>{channel.image_url?<Avatar alt={channel.name} src={channel.image_url} className={classes.large} />:<Avatar className={classes.large} style={{ fontSize: 30 }}>{channel.name[0]}</Avatar>}</ListItemIcon>
             <ListItemText className={classes.channelName} primary={channel.name} secondary={channel.owner}/>
             </ListItem>
-
-
-
           </Link>
         ))}
       </List>

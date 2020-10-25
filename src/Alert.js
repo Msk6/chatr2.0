@@ -1,4 +1,5 @@
 import React from "react";
+
 const Alert = (props) => {
   return (
     <div className="mt-5 p-2">

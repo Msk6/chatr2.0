@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import ChannelForm from "./ChannelForm";
 import 'react-responsive-modal/styles.css';
 import ListItem from "@material-ui/core/ListItem";
@@ -8,7 +7,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from "@material-ui/core/styles";
 import { pink } from '@material-ui/core/colors';
 import AddIcon from '@material-ui/icons/Add';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';

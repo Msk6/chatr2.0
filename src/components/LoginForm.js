@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { authenticateUser } from "../redux/actions";
-
 import 'fontsource-roboto';
-
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -84,8 +82,6 @@ const LoginForm = (props) => {
   const { username, password } = userData;
 
   const handleChange = (event) => {
-    console.log("name", event.target.name);
-    console.log("value", event.target.value);
     return setUserData({
       ...userData,
       [event.target.name]: event.target.value,
@@ -94,7 +90,6 @@ const LoginForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Submited");
     props.login(userData, history);
   };
 
