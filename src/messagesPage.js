@@ -1,26 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { fetchMessages, startTimer, stopTimer, scrollToBottom } from "./redux/actions";
+import { fetchMessages, startTimer, stopTimer } from "./redux/actions";
 import MessageForm from "./MessageForm";
 import { useParams } from "react-router-dom";
-import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from '@material-ui/core/Toolbar';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { grey,pink } from '@material-ui/core/colors';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { animateScroll } from "react-scroll";
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -28,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     paddingBottom: theme.spacing(10),
-    marginLeft: 5,
+    marginLeft: 100,
     marginTop: 90,
     right:0,
   },
@@ -68,25 +61,13 @@ function MessagesPage(props) {
   const classes = useStyles();
   const { channelID } = useParams();
 
-  const bottomRef = useRef(null)
+  const bottomRef = useRef()
   const scrollToBottom = () => {
-    bottomRef.current.scrollIntoView({
-      block:"start",
-    })
-    // animateScroll.scrollToBottom({
-    //   containerId: "cont"
-    // })
-    // messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    setTimeout(() => bottomRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    }),300)
   }
-
-  // const getLatestMessages = () => {
-  //   let time = Date.now - 3000
-  //   console.log(time)
-  //   props.updateMesages(time, channelID)
-  // }
-
-  //let timer = setInterval(getLatestMessages, 3000)
-
 
   useEffect(() => {
     props.fetchMessages(channelID);
@@ -98,7 +79,7 @@ function MessagesPage(props) {
   useEffect(() => {
 
     scrollToBottom()
-  }, []);
+  }, [props.messages]);
 
 
   function isUrl(text)
@@ -118,10 +99,10 @@ function MessagesPage(props) {
       <>
       <ListItem fullWidth button>
       {isUrl(message.message)?(<>
-        <ListItemText primary={props.user.username == message.username ? <React.Fragment><h5><b className={classes.you}>You</b></h5></React.Fragment> : <React.Fragment><h5><b className={classes.them}>{message.username}</b></h5></React.Fragment>}/>
-        <img src={message.message}/>
+        <ListItemText primary={props.user.username === message.username ? <React.Fragment><h5><b className={classes.you}>You</b></h5></React.Fragment> : <React.Fragment><h5><b className={classes.them}>{message.username}</b></h5></React.Fragment>}/>
+        <img src={message.message} alt={message.message}/>
         </>):
-          <ListItemText primary={props.user.username == message.username ? <React.Fragment><h5><b className={classes.you}>You</b></h5></React.Fragment> : <React.Fragment><h5><b className={classes.them}>{message.username}</b></h5></React.Fragment>} secondary={<React.Fragment>
+          <ListItemText primary={props.user.username === message.username ? <React.Fragment><h5><b className={classes.you}>You</b></h5></React.Fragment> : <React.Fragment><h5><b className={classes.them}>{message.username}</b></h5></React.Fragment>} secondary={<React.Fragment>
           <Typography
             component="span"
             variant="h5"
@@ -142,10 +123,10 @@ function MessagesPage(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <div ref={bottomRef} id="cont">
-      <List ref={bottomRef} id="cont" fullWidth className={classes.paper}>
+      <List fullWidth className={classes.paper}>
         {meassages}
       </List>
+      <div ref={bottomRef} id="cont">
       </div>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
@@ -168,8 +149,6 @@ const mapDispatchToProps = (dispatch) => ({
   startTimer: (channelID) => dispatch(startTimer(channelID)),
 
   stopTimer: () => dispatch(stopTimer()),
-
-  scrollToBottom: () => dispatch(scrollToBottom())
 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesPage);

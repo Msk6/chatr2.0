@@ -18,7 +18,6 @@ function App({ user }) {
               <MessagesPage />
             </Route>
           </div>
-
         </div>
       ) : (
         // <MessagesPage />

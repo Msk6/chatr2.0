@@ -142,7 +142,7 @@ function ResponsiveDrawer(props) {
             <Avatar alt="logo" src={logo} className={classes.large} />
           </IconButton>
 
-          <Typography variant="h4" className={classes.title} noWrap>Chatr 2.0</Typography>
+          <Typography variant="h4" className={classes.title} noWrap><b>CONVO</b></Typography>
           {props.user && <Logout />}
         </Toolbar>
       </AppBar>

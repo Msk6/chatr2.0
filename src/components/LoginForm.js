@@ -13,11 +13,10 @@ import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../logo.png"
-import { pink,blueGrey,grey,cyan,teal } from '@material-ui/core/colors';
+import { pink } from '@material-ui/core/colors';
 
 
 
@@ -25,8 +24,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Chater
+      <Link color="inherit">
+        Convo
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -99,7 +98,7 @@ const LoginForm = (props) => {
     props.login(userData, history);
   };
 
-  if (props.user) return <Redirect to="/" />;
+  if (props.user) return <Redirect from="/login" to="/" />;
 
   return (
     <Grid container component="main" className={classes.root}>
