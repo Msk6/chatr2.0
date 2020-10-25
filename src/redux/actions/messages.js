@@ -31,7 +31,7 @@ export const PostMessages = (channelID, message) => async (dispatch) => {
 let timer = null
 export const startTimer = (channelID) => dispatch => {
   console.log("start timer")
-  timer = setInterval(() => dispatch(fetchMessages(channelID)), 3000)
+  timer = setInterval(() => dispatch(fetchMessages(channelID)), 10000)
 }
 
 export const stopTimer = () => dispatch =>{

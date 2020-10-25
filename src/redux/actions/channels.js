@@ -31,7 +31,7 @@ export const addChannel = (newChannel, closeModal) => async dispatch => {
 let timer = null
 export const startChannelTimer = () => dispatch => {
   console.log("start timer")
-  timer = setInterval(() => dispatch(fetchChannels()), 3000)
+  timer = setInterval(() => dispatch(fetchChannels()), 10000)
 }
 
 export const stopChannelTimer = () => dispatch =>{

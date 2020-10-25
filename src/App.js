@@ -20,7 +20,6 @@ function App({ user }) {
           </div>
         </div>
       ) : (
-        // <MessagesPage />
         <>
           <Switch>
             <Route path="/login">
